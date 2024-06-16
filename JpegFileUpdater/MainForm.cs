@@ -201,14 +201,21 @@ public partial class MainForm : Form
         BackupOriginalFiles();
         try
         {
+            var baseFileName = BaseFileNameTextBox.Text.Trim();
             var number = StartNumberTextBox.Text.ToInt(1);
             var digit = DigitTextBox.Text.ToInt(3);
-            foreach (var file in JpegFiles)
+            List<(FileInfo file, string newFileName)> renameList
+                = JpegFiles.Select(x => (x, $"{baseFileName}_{number++.ToString($"D{digit}")}")).ToList();
+            // 衝突防止のため、いったんGUID付きのファイル名にリネーム
+            renameList.AsParallel().ForAll(x =>
             {
-                var newFileName = $"{BaseFileNameTextBox.Text}_{number.ToString($"D{digit}")}{file.Extension}";
-                file.MoveTo(Path.Combine(file.DirectoryName!, newFileName));
-                number++;
-            }
+                x.file.MoveTo(Path.Combine(x.file.DirectoryName!, $"{x.newFileName}_{Guid.NewGuid()}{x.file.Extension}"));
+            });
+            // 指定されたファイル名にリネーム
+            renameList.AsParallel().ForAll(x =>
+            {
+                x.file.MoveTo(Path.Combine(x.file.DirectoryName!, $"{x.newFileName}{x.file.Extension}"));
+            });
             MessageBox.Show(
                 new StringBuilder()
                     .AppendLine("リネームが完了しました。")
