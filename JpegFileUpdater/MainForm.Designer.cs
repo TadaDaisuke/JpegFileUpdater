@@ -274,7 +274,6 @@ partial class MainForm
         Icon = (Icon)resources.GetObject("$this.Icon");
         Name = "MainForm";
         StartPosition = FormStartPosition.CenterScreen;
-        Text = "JPEGファイル更新ツール";
         Load += MainForm_Load;
         DragDrop += MainForm_DragDrop;
         DragEnter += MainForm_DragEnter;

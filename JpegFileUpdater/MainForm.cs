@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 
 namespace JpegFileUpdater;
 
@@ -14,6 +15,7 @@ public partial class MainForm : Form
     public MainForm()
     {
         InitializeComponent();
+        Text = $"{APP_FULL_NAME} - {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion}";
         MaximumSize = Size;
         MinimumSize = Size;
         MaximizeBox = false;
