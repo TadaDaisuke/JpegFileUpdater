@@ -221,6 +221,7 @@ partial class MainForm
         StartNumberTextBox.Name = "StartNumberTextBox";
         StartNumberTextBox.Size = new Size(100, 23);
         StartNumberTextBox.TabIndex = 5;
+        StartNumberTextBox.TextAlign = HorizontalAlignment.Right;
         StartNumberTextBox.TextChanged += StartNumberTextBox_TextChanged;
         // 
         // DigitTextBox
@@ -229,6 +230,7 @@ partial class MainForm
         DigitTextBox.Name = "DigitTextBox";
         DigitTextBox.Size = new Size(100, 23);
         DigitTextBox.TabIndex = 3;
+        DigitTextBox.TextAlign = HorizontalAlignment.Right;
         DigitTextBox.TextChanged += DigitTextBox_TextChanged;
         // 
         // label4
