@@ -12,7 +12,7 @@ public partial class MainForm : Form
 
     private string LastBackupDir { get; set; } = string.Empty;
 
-    public MainForm()
+    public MainForm(string[]? args)
     {
         InitializeComponent();
         Text = $"{APP_FULL_NAME} - {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion}";
@@ -26,6 +26,7 @@ public partial class MainForm : Form
         StartNumberTextBox.Text = appConfig.StartNumber.ToString();
         BaseDateTimePicker.Value = appConfig.BaseDateTime;
         SecondsTextBox.Text = appConfig.Seconds.ToString();
+        AppendToFileListTextBox(args);
         ShowStatusMessage();
     }
 
@@ -49,7 +50,12 @@ public partial class MainForm : Form
     private void MainForm_DragDrop(object sender, DragEventArgs e)
     {
         var files = e.Data?.GetData(DataFormats.FileDrop) as string[];
-        if (files == null)
+        AppendToFileListTextBox(files);
+    }
+
+    private void AppendToFileListTextBox(string[]? files)
+    {
+        if (files == null || files.Length == 0)
         {
             return;
         }
