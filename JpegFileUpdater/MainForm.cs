@@ -99,7 +99,7 @@ public partial class MainForm : Form
         }
         StatusLabel.Text = $"ファイル数: {JpegFiles.Count()}";
         SortButton.Enabled = true;
-        RenameButton.Enabled = true;
+        RenameButton.Enabled = (0 < BaseFileNameTextBox.Text.Trim().Length);
         UpdateButton.Enabled = true;
     }
 
@@ -304,6 +304,7 @@ public partial class MainForm : Form
         {
             return;
         }
+        ShowStatusMessage();
         AppConfig.SaveBaseFileName(BaseFileNameTextBox.Text);
     }
 
