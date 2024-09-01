@@ -281,10 +281,17 @@ public partial class MainForm : Form
     {
         var tempDir = Path.Combine(Path.GetTempPath(), $"{APP_NAME}_{DateTime.Now:yyyyMMddHHmmss}_{Guid.NewGuid()}");
         Directory.CreateDirectory(tempDir);
+        var backupDir = tempDir;
+        var lastOriginalDir = string.Empty;
         foreach (var file in JpegFiles)
         {
-            var dest = Path.Combine(tempDir, file.Name);
-            file.CopyTo(dest);
+            if (lastOriginalDir != string.Empty && lastOriginalDir != file.DirectoryName)
+            {
+                backupDir = Path.Combine(tempDir, Guid.NewGuid().ToString());
+                Directory.CreateDirectory(backupDir);
+            }
+            file.CopyTo(Path.Combine(backupDir, file.Name));
+            lastOriginalDir = file.DirectoryName;
         }
         LastBackupDir = tempDir;
     }
