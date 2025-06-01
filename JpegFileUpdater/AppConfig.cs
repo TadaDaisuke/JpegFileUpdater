@@ -9,25 +9,25 @@ internal class AppConfig
         => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), APP_NAME, "appconfig.json");
 
     [JsonInclude]
-    internal string ExifToolPath { get; set; } = string.Empty;
+    internal string ExifToolPath { get; private set; } = string.Empty;
 
     [JsonInclude]
-    internal string BaseFileName { get; set; } = string.Empty;
+    internal string BaseFileName { get; private set; } = string.Empty;
 
     [JsonInclude]
-    internal int Digit { get; set; } = 3;
+    internal int Digit { get; private set; } = 3;
 
     [JsonInclude]
-    internal int StartNumber { get; set; } = 1;
+    internal int StartNumber { get; private set; } = 1;
 
     [JsonInclude]
-    internal DateTime BaseDateTime { get; set; } = new DateTime(DateTime.Now.Year, 1, 1);
+    internal DateTime BaseDateTime { get; private set; } = new DateTime(DateTime.Now.Year, 1, 1);
 
     [JsonInclude]
-    internal int Seconds { get; set; } = 1;
+    internal int Seconds { get; private set; } = 1;
 
     internal static AppConfig Load()
-        => File.Exists(ConfigPath) ? JsonSerializer.Deserialize<AppConfig>(File.ReadAllText(ConfigPath)) ?? new AppConfig() : new AppConfig();
+        => (File.Exists(ConfigPath) ? JsonSerializer.Deserialize<AppConfig>(File.ReadAllText(ConfigPath)) : null) ?? new AppConfig();
 
     private void Save()
     {

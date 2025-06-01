@@ -6,7 +6,7 @@ namespace JpegFileUpdater;
 public partial class MainForm : Form
 {
     private IEnumerable<FileInfo> JpegFiles =>
-        FileListTextBox.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Select(x => new FileInfo(x));
+        FileListTextBox.Text.Split([Environment.NewLine], StringSplitOptions.RemoveEmptyEntries).Select(x => new FileInfo(x));
 
     private bool IsLoading { get; set; } = true;
 
@@ -64,7 +64,7 @@ public partial class MainForm : Form
         FileListTextBox.Focus();
     }
 
-    private IEnumerable<string> GetJpegFileListRecursive(string[] files)
+    private static IEnumerable<string> GetJpegFileListRecursive(string[] files)
     {
         var result = new List<string>();
         foreach (var file in files)
